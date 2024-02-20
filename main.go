@@ -23,7 +23,6 @@ import (
 	vapi "github.com/hashicorp/vault/api"
 	flags "github.com/jessevdk/go-flags"
 	_ "github.com/joho/godotenv/autoload"
-	"github.com/phayes/permbits"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -209,11 +208,7 @@ func readConfig(path string) error {
 		if err != nil {
 			return err
 		}
-
-		if perms := permbits.FileMode(fi.Mode()); perms != 0o600 && perms != 0o400 && perms != 0o440 {
-			return fmt.Errorf("permissions of %q are insecure: %s, please use 0600, 0440, or 0400", path, perms)
-		}
-
+		
 		// Check to see if it's updated.
 		if fi.ModTime() == conf.lastModifiedCheck {
 			return nil
