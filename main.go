@@ -208,7 +208,7 @@ func readConfig(path string) error {
 		if err != nil {
 			return err
 		}
-		
+
 		// Check to see if it's updated.
 		if fi.ModTime() == conf.lastModifiedCheck {
 			return nil
